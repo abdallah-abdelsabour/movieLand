@@ -1,8 +1,24 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Star from "./Favicon";
 const Card = ({ movie, handleFavourt, intial }) => {
-  const [add, setAdded] = useState(intial);
+  const movies = useSelector((state) => {
+    return state.data;
+  });
+
+  const isInFavourt = movies.find((m) => {
+    return movie.id == m.id;
+  });
+  console.log("is card in favourt", isInFavourt);
+  let type = true;
+  if (isInFavourt) {
+    type = true;
+  } else {
+    type = false;
+  }
+
+  const [add, setAdded] = useState(type);
 
   return (
     <div className="relative " key={movie.id}>
